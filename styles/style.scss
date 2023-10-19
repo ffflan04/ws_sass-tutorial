@@ -1,0 +1,103 @@
+/* Sassを使うには、Scssファイルをcssファイルにコンパイルする必要があります。*/
+/* Scssファイルのコンパイル結果をチェックする場合は、Live Sass Compiler をインストールし、 */
+/* 画面下の、Watch Sass ボタンを押します。*/
+/* 上記の操作で、scssファイルを常にcssファイルへコンパイルし、実行結果を確認することができます。*/
+
+/* Sassの変数の定義 */
+$mainColor: #e89bcf;
+$leftContentColor: #dba25b;
+$rightContentColor: yellowgreen;
+$leftTextColor: #fff;
+$rightTextColor: aqua;
+$buttonBGColor: gray;
+
+/* Sassの特徴 ファイルの分離 */
+/* 上記で定義した変数を、他のscssファイルに記述してimportすることができる */
+@import './variables.scss';
+
+/* なに！？Sassを使えば、cssで関数を定義できるだと？？ */
+/* なんと引数を取ることもできます。*/
+/* 呼び出す際は、@include 関数名 と記述します。*/
+@mixin flexCenter() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* 上記で定義した関数を、他のscssファイルに記述してimportすることができる */
+/*@import './function.scss';*/
+
+* {
+    margin: 0; 
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: aquamarine;
+}
+main {
+    width: 100%;
+    height: 100%;
+    background-color: $mainColor;
+    @include flexCenter
+}
+/* Sass特有の、入れ子構造式の記述 */
+main .content {
+    display: flex;
+
+    .leftContent {
+        position: relative;
+        width: 650px;
+        height: 470px;
+        background-color: $leftContentColor;
+        border-radius: 10px;
+        margin-right: 20px;
+
+        h2 {
+            position: absolute;
+            top: 40px;
+            right: 30px;
+            font-size: 50px;
+            color: $leftTextColor;
+            transition: 0.5s;
+            &:hover { /* 入れ子内で記述する& = 親要素、ここでいったら、h2に相当する */
+                font-size: 65px;
+                color: $mainColor;
+            }
+        }
+    }
+
+    .rightContent {
+        width: 300px;
+        position: relative;
+
+        p {
+            position: absolute;
+            top: 120px;
+            height: 400px;
+            border-radius: 10px;
+            background-color: $rightContentColor;
+            padding: 15px;
+            color: $rightTextColor;
+        }
+
+        button {
+            position: absolute;
+            top: 300px;
+            left: 30px;
+            padding: 13px;
+            border: none; /* buttonって元からborderついてたんだ〜 */
+            border-radius: 3px;
+            background-color: $buttonBGColor;
+            color: $leftTextColor;
+            transition: all 0.2s;
+
+            &:hover {
+                font-size: 20px;
+                color: $mainColor;
+            }
+        }
+    }
+}
